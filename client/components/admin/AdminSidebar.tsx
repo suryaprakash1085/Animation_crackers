@@ -39,15 +39,15 @@ export function AdminSidebar() {
   return (
     <Sidebar
       collapsible="icon"
-      className="border-r border-white/5 [&>div]:bg-[#020617]"
+      className="border-r border-slate-200 [&>div]:bg-white"
     >
-      <SidebarContent className="bg-[#020617] text-slate-300">
+      <SidebarContent className="bg-white text-slate-600">
         <div className="p-6 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/30 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/20 shrink-0">
             <Zap className="h-5 w-5 text-white" fill="white" />
           </div>
           {!collapsed && (
-            <span className="text-xl font-bold tracking-tight text-white">
+            <span className="text-xl font-bold tracking-tight text-slate-900">
               NEXUS<span className="text-violet-500">.</span>
             </span>
           )}
@@ -56,7 +56,7 @@ export function AdminSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             {!collapsed && (
-              <div className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3 px-5">
+              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-3 px-5">
                 Management
               </div>
             )}
@@ -70,8 +70,8 @@ export function AdminSidebar() {
                       className={({ isActive }) =>
                         `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
                           isActive
-                            ? "bg-violet-600/10 text-violet-400 border border-violet-500/20 font-medium"
-                            : "text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 border border-transparent"
+                            ? "bg-violet-50 text-violet-600 border border-violet-200 font-medium"
+                            : "text-slate-500 hover:bg-slate-100 hover:text-slate-800 border border-transparent"
                         }`
                       }
                     >
@@ -88,21 +88,21 @@ export function AdminSidebar() {
         <SidebarGroup className="mt-auto">
           <SidebarGroupContent>
             {!collapsed && (
-              <div className="mx-4 mb-3 p-4 rounded-2xl bg-slate-900/50 border border-slate-800">
+              <div className="mx-4 mb-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
                 <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-2">
                   Stock Health
                 </p>
-                <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 w-3/4 shadow-[0_0_10px_rgba(139,92,246,0.4)]" />
+                <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 w-3/4 shadow-[0_0_10px_rgba(139,92,246,0.3)]" />
                 </div>
-                <p className="text-[10px] text-slate-400 mt-2">75% Inventory optimized</p>
+                <p className="text-[10px] text-slate-500 mt-2">75% Inventory optimized</p>
               </div>
             )}
             <SidebarMenu className="px-3 pb-3">
               <SidebarMenuItem>
                 <SidebarMenuButton
                   onClick={handleLogout}
-                  className="text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 rounded-xl px-3 py-2.5"
+                  className="text-slate-500 hover:bg-slate-100 hover:text-slate-800 rounded-xl px-3 py-2.5"
                 >
                   <LogOut className="h-5 w-5 shrink-0" />
                   {!collapsed && <span>Logout</span>}

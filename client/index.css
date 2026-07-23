@@ -231,19 +231,19 @@
   transition: opacity 0.3s;
 }
 
-/* ===== Admin Command Center — Cyber Obsidian (Violet → Fuchsia) ===== */
+/* ===== Admin Command Center — Light (Violet → Fuchsia accents) ===== */
 .admin-shell {
-  --admin-bg: 222 47% 4%;
-  --admin-card: 222 47% 8%;
-  --admin-border: 0 0% 100% / 0.06;
+  --admin-bg: 250 40% 98%;
+  --admin-card: 0 0% 100%;
+  --admin-border: 222 20% 90%;
   --admin-violet: 262 83% 58%;
   --admin-fuchsia: 292 84% 61%;
   --admin-grad: linear-gradient(135deg, hsl(262 83% 58%), hsl(292 84% 61%));
   font-family: 'Inter', system-ui, sans-serif;
   background:
-    radial-gradient(1200px 600px at 100% -10%, rgba(139,92,246,0.10), transparent 60%),
-    radial-gradient(900px 500px at -10% 110%, rgba(217,70,239,0.08), transparent 60%),
-    #020617;
+    radial-gradient(1200px 600px at 100% -10%, rgba(139,92,246,0.06), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(217,70,239,0.05), transparent 60%),
+    #f8fafc;
 }
 .admin-shell,
 .admin-content,
@@ -254,19 +254,18 @@
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-/* Signature card: obsidian glass surface + soft violet corner glow */
+/* Signature card: clean white surface + soft violet corner glow */
 .admin-content [class*="bg-card"],
 .admin-content .bg-card,
 .admin-content .bg-white {
   position: relative;
-  background: rgba(15,23,42,0.35) !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
+  background: #ffffff !important;
+  border: 1px solid rgb(226 232 240) !important;
   border-radius: 1.5rem !important;
-  color: rgb(226 232 240) !important;
-  backdrop-filter: blur(14px);
+  color: rgb(30 41 59) !important;
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.03) inset,
-    0 30px 60px -30px rgba(0,0,0,0.6);
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 20px 40px -28px rgba(15,23,42,0.15);
   overflow: hidden;
 }
 .admin-content [class*="bg-card"]::before,
@@ -274,7 +273,7 @@
 .admin-content .bg-white::before {
   content: "";
   position: absolute; right: -30px; top: -30px; width: 140px; height: 140px;
-  background: radial-gradient(closest-side, rgba(139,92,246,0.18), transparent 70%);
+  background: radial-gradient(closest-side, rgba(139,92,246,0.10), transparent 70%);
   filter: blur(20px);
   pointer-events: none;
   transition: opacity .3s;
@@ -286,42 +285,42 @@
 }
 
 .admin-content h1, .admin-content h2, .admin-content h3, .admin-content h4 {
-  color: white !important;
+  color: rgb(15 23 42) !important;
   letter-spacing: -0.02em;
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 700;
 }
-.admin-content p, .admin-content label, .admin-content span:not([class*="text-"]) { color: rgb(148 163 184); }
+.admin-content p, .admin-content label, .admin-content span:not([class*="text-"]) { color: rgb(100 116 139); }
 .admin-content .text-muted-foreground { color: rgb(100 116 139) !important; }
-.admin-content .text-foreground { color: white !important; }
+.admin-content .text-foreground { color: rgb(15 23 42) !important; }
 
-/* Inputs — recessed obsidian */
+/* Inputs — clean light surfaces */
 .admin-content input:not([type="color"]), .admin-content textarea, .admin-content select,
 .admin-content [role="combobox"] {
-  background: rgba(2,6,23,0.6) !important;
-  border: 1px solid rgba(255,255,255,0.08) !important;
-  color: white !important;
+  background: #ffffff !important;
+  border: 1px solid rgb(226 232 240) !important;
+  color: rgb(15 23 42) !important;
   border-radius: 0.75rem !important;
   transition: border-color .2s, box-shadow .2s;
 }
 .admin-content input:focus, .admin-content textarea:focus, .admin-content [role="combobox"]:focus {
   border-color: rgba(139,92,246,0.6) !important;
-  box-shadow: 0 0 0 3px rgba(139,92,246,0.20) !important;
+  box-shadow: 0 0 0 3px rgba(139,92,246,0.15) !important;
 }
-.admin-content input::placeholder, .admin-content textarea::placeholder { color: rgb(71 85 105) !important; }
+.admin-content input::placeholder, .admin-content textarea::placeholder { color: rgb(148 163 184) !important; }
 
-/* Tables — obsidian rows + violet row indicator on hover, mono IDs */
-.admin-content table { color: rgb(203 213 225); border-collapse: separate; border-spacing: 0; }
-.admin-content thead { background: rgba(15,23,42,0.6) !important; }
+/* Tables — light rows + violet row indicator on hover */
+.admin-content table { color: rgb(51 65 85); border-collapse: separate; border-spacing: 0; }
+.admin-content thead { background: rgb(248 250 252) !important; }
 .admin-content thead th {
   color: rgb(100 116 139) !important;
   text-transform: uppercase;
   font-size: 10px; letter-spacing: 0.18em; font-weight: 700;
-  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  border-bottom: 1px solid rgb(226 232 240) !important;
 }
-.admin-content tbody tr { border-color: rgba(255,255,255,0.04) !important; transition: background .2s, box-shadow .2s; }
+.admin-content tbody tr { border-color: rgb(241 245 249) !important; transition: background .2s, box-shadow .2s; }
 .admin-content tbody tr:hover {
-  background: rgba(139,92,246,0.06) !important;
+  background: rgba(139,92,246,0.05) !important;
   box-shadow: inset 2px 0 0 hsl(var(--admin-violet));
 }
 
@@ -329,70 +328,68 @@
 .admin-content button[class*="bg-primary"] {
   background: var(--admin-grad) !important;
   color: white !important;
-  box-shadow: 0 8px 24px -8px rgba(139,92,246,0.55), 0 0 0 1px rgba(255,255,255,0.06) inset;
+  box-shadow: 0 8px 24px -8px rgba(139,92,246,0.4), 0 0 0 1px rgba(255,255,255,0.06) inset;
   border: none !important;
   border-radius: 0.75rem !important;
   font-weight: 600;
 }
-.admin-content button[class*="bg-primary"]:hover { filter: brightness(1.1); transform: translateY(-1px); }
-.admin-content [class*="bg-secondary"] { background: rgba(30,41,59,0.6) !important; color: rgb(203 213 225) !important; border-radius: 0.75rem !important; }
-.admin-content [data-radix-popper-content-wrapper] > * { background: rgb(15 23 42) !important; border: 1px solid rgba(255,255,255,0.08) !important; color: white !important; }
+.admin-content button[class*="bg-primary"]:hover { filter: brightness(1.05); transform: translateY(-1px); }
+.admin-content [class*="bg-secondary"] { background: rgb(241 245 249) !important; color: rgb(51 65 85) !important; border-radius: 0.75rem !important; }
+.admin-content [data-radix-popper-content-wrapper] > * { background: #ffffff !important; border: 1px solid rgb(226 232 240) !important; color: rgb(15 23 42) !important; }
 .admin-content [role="dialog"] {
-  background: linear-gradient(180deg, #0f172a, #020617) !important;
-  border: 1px solid rgba(255,255,255,0.08) !important;
-  color: white !important;
+  background: linear-gradient(180deg, #ffffff, #f8fafc) !important;
+  border: 1px solid rgb(226 232 240) !important;
+  color: rgb(15 23 42) !important;
   border-radius: 1.5rem !important;
 }
-.admin-content .border, .admin-content [class*="border-"] { border-color: rgba(255,255,255,0.06); }
+.admin-content .border, .admin-content [class*="border-"] { border-color: rgb(226 232 240); }
 
 /* Reusable admin helper classes */
 .admin-page-header {
   position: relative;
   padding: 1.5rem 1.75rem;
   border-radius: 1.5rem;
-  background: rgba(15,23,42,0.35);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #ffffff;
+  border: 1px solid rgb(226 232 240);
   overflow: hidden;
-  backdrop-filter: blur(14px);
 }
 .admin-page-header::before {
   content: ""; position: absolute; inset: 0;
   background:
-    radial-gradient(500px 160px at 0% 0%, rgba(139,92,246,0.16), transparent 60%),
-    radial-gradient(400px 160px at 100% 100%, rgba(217,70,239,0.10), transparent 60%);
+    radial-gradient(500px 160px at 0% 0%, rgba(139,92,246,0.08), transparent 60%),
+    radial-gradient(400px 160px at 100% 100%, rgba(217,70,239,0.06), transparent 60%);
   pointer-events: none;
 }
 .admin-page-header .accent-dot {
   width: 10px; height: 10px; border-radius: 999px;
   background: var(--admin-grad);
-  box-shadow: 0 0 14px rgba(139,92,246,0.8);
+  box-shadow: 0 0 14px rgba(139,92,246,0.5);
 }
 
 .admin-stat {
   position: relative;
   padding: 1.5rem;
   border-radius: 1.5rem;
-  background: rgba(15,23,42,0.35);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #ffffff;
+  border: 1px solid rgb(226 232 240);
   overflow: hidden;
-  backdrop-filter: blur(14px);
 }
 .admin-stat .icon-badge {
   width: 44px; height: 44px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, rgba(139,92,246,0.18), rgba(217,70,239,0.10));
-  border: 1px solid rgba(139,92,246,0.30);
-  color: #c4b5fd;
+  background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(217,70,239,0.08));
+  border: 1px solid rgba(139,92,246,0.25);
+  color: #7c3aed;
 }
 
 .admin-pill-btn {
   display: inline-flex; align-items: center; gap: .4rem;
   padding: .45rem .75rem; border-radius: 0.6rem;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: rgb(203 213 225); font-size: 12px; transition: all .2s;
+  background: rgb(248 250 252);
+  border: 1px solid rgb(226 232 240);
+  color: rgb(71 85 105); font-size: 12px; transition: all .2s;
 }
-.admin-pill-btn:hover { background: rgba(139,92,246,0.14); border-color: rgba(139,92,246,0.5); color: #ddd6fe; }
-.admin-pill-btn.danger:hover { background: rgba(239,68,68,0.14); border-color: rgba(239,68,68,0.5); color: #fecaca; }
+.admin-pill-btn:hover { background: rgba(139,92,246,0.10); border-color: rgba(139,92,246,0.4); color: #6d28d9; }
+.admin-pill-btn.danger:hover { background: rgba(239,68,68,0.10); border-color: rgba(239,68,68,0.4); color: #b91c1c; }
 
 .admin-mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace; }

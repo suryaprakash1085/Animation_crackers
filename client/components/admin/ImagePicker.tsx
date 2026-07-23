@@ -24,28 +24,28 @@ export const ImagePicker = ({
   };
   return (
     <div className="space-y-2">
-      <div className="text-xs text-slate-400">{label}</div>
+      <div className="text-xs text-slate-500">{label}</div>
       <div className="flex gap-2">
         <Input
           placeholder="Paste image URL or upload"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="bg-slate-900/60 border-white/10 text-slate-100"
+          className="bg-slate-50 border-slate-200 text-slate-900"
         />
         <label className="cursor-pointer">
           <input type="file" accept="image/*" className="hidden" onChange={(e) => onFile(e.target.files?.[0] ?? null)} />
-          <span className="inline-flex items-center gap-1 h-10 px-3 rounded-md border border-white/10 bg-slate-900/60 text-slate-200 hover:bg-slate-800 text-sm">
+          <span className="inline-flex items-center gap-1 h-10 px-3 rounded-md border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 text-sm">
             <Upload className="w-4 h-4" /> Upload
           </span>
         </label>
         {value && (
-          <Button type="button" variant="ghost" size="icon" onClick={() => onChange("")} className="text-slate-400">
+          <Button type="button" variant="ghost" size="icon" onClick={() => onChange("")} className="text-slate-500">
             <X className="w-4 h-4" />
           </Button>
         )}
       </div>
       {value && (
-        <img src={value} alt="preview" className="max-h-32 rounded-lg border border-white/10 bg-black/20" />
+        <img src={value} alt="preview" className="max-h-32 rounded-lg border border-slate-200 bg-slate-50" />
       )}
     </div>
   );

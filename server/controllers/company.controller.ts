@@ -8,8 +8,8 @@ export const CompanyController = {
   },
 
   async update(req: Request, res: Response) {
-    const { company_name, gst_number, address, phone, email } = req.body;
-    const item = await CompanyModel.update({ company_name, gst_number, address, phone, email });
+    const { company_name, gst_number, address, phone, email, logo, website, description } = req.body;
+    const item = await CompanyModel.update({ company_name, gst_number, address, phone, email, logo, website, description });
     res.json({ success: true, data: item });
   },
 };

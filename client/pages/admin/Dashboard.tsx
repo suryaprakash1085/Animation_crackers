@@ -61,7 +61,7 @@ export default function Dashboard() {
               </span>
             </div>
             <p className="text-xs text-slate-400 mt-4 uppercase tracking-wider">{s.label}</p>
-            <p className="text-2xl font-bold text-white mt-1">{s.value}</p>
+            <p className="text-2xl font-bold text-slate-900 mt-1">{s.value}</p>
           </div>
         ))}
       </div>
@@ -70,7 +70,7 @@ export default function Dashboard() {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="font-semibold text-white">Weekly Sales</h3>
+              <h3 className="font-semibold text-slate-900">Weekly Sales</h3>
               <p className="text-xs text-slate-500">Last 7 days</p>
             </div>
             <TrendingUp className="w-4 h-4 text-orange-400" />
@@ -94,7 +94,7 @@ export default function Dashboard() {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="font-semibold text-white">Revenue Trend</h3>
+              <h3 className="font-semibold text-slate-900">Revenue Trend</h3>
               <p className="text-xs text-slate-500">Last 7 days</p>
             </div>
             <TrendingUp className="w-4 h-4 text-amber-400" />

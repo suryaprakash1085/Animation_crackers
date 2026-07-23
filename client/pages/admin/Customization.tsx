@@ -53,7 +53,7 @@ export default function Customization() {
                   type="button"
                   onClick={() => upd("primaryHsl", c.hsl)}
                   className={`p-3 rounded-xl border-2 transition flex items-center gap-2 ${
-                    v.primaryHsl === c.hsl ? "border-white" : "border-transparent"
+                    v.primaryHsl === c.hsl ? "border-slate-900" : "border-transparent"
                   }`}
                   style={{ background: `hsl(${c.hsl} / 0.2)` }}
                 >
@@ -96,7 +96,7 @@ export default function Customization() {
               className="w-full mt-2"
             />
           </div>
-          <div className="p-4 rounded-xl bg-slate-900/40 border border-white/10">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
             <p style={{ fontFamily: v.fontFamily, fontSize: v.fontSize }}>
               Preview: The quick brown fox jumps over the lazy dog.
             </p>
@@ -106,15 +106,15 @@ export default function Customization() {
         <Card className="p-6 space-y-4 lg:col-span-2">
           <h3 className="font-semibold text-lg">Features</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="flex items-center justify-between p-3 rounded-xl border border-white/10">
+            <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200">
               <Label>Fireworks Animation</Label>
               <Switch checked={v.enableFireworks} onCheckedChange={(c) => upd("enableFireworks", c)} />
             </div>
-            <div className="flex items-center justify-between p-3 rounded-xl border border-white/10">
+            <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200">
               <Label>Offers Banner</Label>
               <Switch checked={v.showOffersBanner} onCheckedChange={(c) => upd("showOffersBanner", c)} />
             </div>
-            <div className="flex items-center justify-between p-3 rounded-xl border border-white/10">
+            <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200">
               <Label>Enable Cart</Label>
               <Switch checked={v.enableCart} onCheckedChange={(c) => upd("enableCart", c)} />
             </div>

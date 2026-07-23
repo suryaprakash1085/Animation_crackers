@@ -10,6 +10,7 @@ const withCategory = () =>
       "p.id",
       "p.name",
       "p.price",
+      "p.discount_percent",
       "p.image",
       "p.badge",
       "c.name as category",
@@ -41,11 +42,12 @@ export const ProductModel = {
     return created.id;
   },
 
-  async create(data: { name: string; price: number; category?: string; image?: string; badge?: string }) {
+  async create(data: { name: string; price: number; discount_percent?: number; category?: string; image?: string; badge?: string }) {
     const category_id = await this.resolveCategoryId(data.category);
     const [id] = await table().insert({
       name: data.name,
       price: data.price,
+      discount_percent: data.discount_percent || 0,
       category_id,
       image: data.image || null,
       badge: data.badge || null,
@@ -53,10 +55,11 @@ export const ProductModel = {
     return this.findById(id);
   },
 
-  async update(id: number, data: { name?: string; price?: number; category?: string; image?: string; badge?: string }) {
+  async update(id: number, data: { name?: string; price?: number; discount_percent?: number; category?: string; image?: string; badge?: string }) {
     const update: Record<string, any> = { updated_at: db.fn.now() };
     if (data.name !== undefined) update.name = data.name;
     if (data.price !== undefined) update.price = data.price;
+    if (data.discount_percent !== undefined) update.discount_percent = data.discount_percent;
     if (data.image !== undefined) update.image = data.image;
     if (data.badge !== undefined) update.badge = data.badge;
     if (data.category !== undefined) update.category_id = await this.resolveCategoryId(data.category);

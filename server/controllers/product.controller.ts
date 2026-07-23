@@ -18,17 +18,25 @@ export const ProductController = {
   },
 
   async create(req: Request, res: Response) {
-    const { name, price, category, image, badge } = req.body;
+    const { name, price, discount_percent, category, image, badge } = req.body;
     if (!name?.trim()) return res.status(400).json({ success: false, error: "Name is required" });
-    const item = await ProductModel.create({ name: name.trim(), price: Number(price) || 0, category, image, badge });
+    const item = await ProductModel.create({
+      name: name.trim(),
+      price: Number(price) || 0,
+      discount_percent: Number(discount_percent) || 0,
+      category,
+      image,
+      badge,
+    });
     res.status(201).json({ success: true, data: item });
   },
 
   async update(req: Request, res: Response) {
-    const { name, price, category, image, badge } = req.body;
+    const { name, price, discount_percent, category, image, badge } = req.body;
     const item = await ProductModel.update(Number(req.params.id), {
       name,
       price: price !== undefined ? Number(price) : undefined,
+      discount_percent: discount_percent !== undefined ? Number(discount_percent) : undefined,
       category,
       image,
       badge,

@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
@@ -38,6 +42,10 @@ export default function Orders() {
   const [editStatus, setEditStatus] = useState<Status>("Pending");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("__all__");
+  const [createOpen, setCreateOpen] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const emptyOrderForm = { customer_name: "", phone: "", address: "", total: 0 };
+  const [orderForm, setOrderForm] = useState(emptyOrderForm);
 
   const load = async () => {
     setLoading(true);
@@ -71,6 +79,24 @@ export default function Orders() {
       }
     }
   };
+  const onCreate = () => { setOrderForm(emptyOrderForm); setCreateOpen(true); };
+  const saveNewOrder = async () => {
+    if (!orderForm.customer_name.trim() || !orderForm.phone.trim()) {
+      toast.error("Name and phone are required");
+      return;
+    }
+    setCreating(true);
+    try {
+      await api.post("/orders", orderForm);
+      toast.success("Order added");
+      setCreateOpen(false);
+      load();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to add order");
+    } finally {
+      setCreating(false);
+    }
+  };
   const confirmDelete = async () => {
     if (modal.deleteItem) {
       try {
@@ -95,7 +121,11 @@ export default function Orders() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Orders" description="View and update order statuses" />
+      <PageHeader
+        title="Orders"
+        description="View and update order statuses"
+        action={<Button onClick={onCreate}><Plus className="h-4 w-4" /> Add Order</Button>}
+      />
       <TableFilters
         search={search}
         onSearchChange={setSearch}
@@ -142,6 +172,21 @@ export default function Orders() {
             </div>
           </div>
         )}
+      </FormModal>
+
+      <FormModal
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        title="Add Order"
+        onSubmit={saveNewOrder}
+        submitText={creating ? "Saving..." : "Save"}
+      >
+        <div className="space-y-3">
+          <div><Label>Customer Name</Label><Input value={orderForm.customer_name} onChange={(e) => setOrderForm({ ...orderForm, customer_name: e.target.value })} /></div>
+          <div><Label>Phone</Label><Input value={orderForm.phone} onChange={(e) => setOrderForm({ ...orderForm, phone: e.target.value })} /></div>
+          <div><Label>Address</Label><Textarea value={orderForm.address} onChange={(e) => setOrderForm({ ...orderForm, address: e.target.value })} /></div>
+          <div><Label>Total (₹)</Label><Input type="number" value={orderForm.total} onChange={(e) => setOrderForm({ ...orderForm, total: +e.target.value })} /></div>
+        </div>
       </FormModal>
 
       <ConfirmDialog

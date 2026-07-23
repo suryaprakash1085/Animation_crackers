@@ -11,8 +11,8 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-950">
-        <p className="text-slate-400">Loading...</p>
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <p className="text-slate-500">Loading...</p>
       </div>
     );
   }
@@ -23,12 +23,12 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <SidebarProvider>
-      <div className="admin-shell min-h-screen flex w-full bg-[#020617] text-slate-100" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <div className="admin-shell min-h-screen flex w-full bg-slate-50 text-slate-900" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
         <AdminSidebar />
         <div className="flex-1 flex flex-col min-w-0">
-          <header className="h-20 flex items-center justify-between border-b border-white/5 bg-[#020617]/80 backdrop-blur-xl px-8 sticky top-0 z-10">
+          <header className="h-20 flex items-center justify-between border-b border-slate-200 bg-white/80 backdrop-blur-xl px-8 sticky top-0 z-10">
             <div>
-              <h2 className="font-bold text-white tracking-tight text-lg">Admin Console</h2>
+              <h2 className="font-bold text-slate-900 tracking-tight text-lg">Admin Console</h2>
               <p className="text-xs text-slate-500 mt-0.5">Welcome back, {user.email}</p>
             </div>
             <div className="flex items-center gap-3">
@@ -36,20 +36,20 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
                 <input
                   type="text"
                   placeholder="Search commands..."
-                  className="bg-slate-900/50 border border-slate-800 rounded-full px-5 py-2 w-64 text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-violet-500/50 transition-all placeholder:text-slate-600"
+                  className="bg-slate-100 border border-slate-200 rounded-full px-5 py-2 w-64 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-violet-500/40 transition-all placeholder:text-slate-400"
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-slate-600 border border-slate-800 px-1.5 py-0.5 rounded">
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded">
                   ⌘K
                 </span>
               </div>
-              <button className="md:hidden p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-colors">
+              <button className="md:hidden p-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-500 hover:text-slate-900 transition-colors">
                 <Search className="w-4 h-4" />
               </button>
               <NotificationBell />
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-violet-500/30">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-violet-500/20">
                 {user.email[0]?.toUpperCase()}
               </div>
-              <SidebarTrigger className="text-slate-400 hover:text-white" />
+              <SidebarTrigger className="text-slate-500 hover:text-slate-900" />
             </div>
           </header>
           <main className="flex-1 p-6 lg:p-10 overflow-auto">

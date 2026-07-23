@@ -14,13 +14,13 @@ import { TableFilters } from "@/components/admin/TableFilters";
 import { ImagePicker } from "@/components/admin/ImagePicker";
 import { api } from "@/lib/api";
 
-interface Product { id: number; name: string; price: number; category: string; image: string; badge?: string; }
+interface Product { id: number; name: string; price: number; discount_percent?: number; category: string; image: string; badge?: string; }
 
 export default function AdminProducts() {
   const [items, setItems] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const modal = useCrudModal<Product>();
-  const [form, setForm] = useState({ name: "", price: 0, category: "", image: "" });
+  const [form, setForm] = useState({ name: "", price: 0, discount_percent: 0, category: "", image: "" });
   const [search, setSearch] = useState("");
   const [cat, setCat] = useState("__all__");
 
@@ -28,7 +28,7 @@ export default function AdminProducts() {
     setLoading(true);
     try {
       const res = await api.get<{ data: Product[] }>("/products");
-      setItems(res.data.map((p: any) => ({ ...p, price: Number(p.price) })));
+      setItems(res.data.map((p: any) => ({ ...p, price: Number(p.price), discount_percent: Number(p.discount_percent) || 0 })));
     } catch (err: any) {
       toast.error(err.message || "Failed to load products");
     } finally {
@@ -45,11 +45,11 @@ export default function AdminProducts() {
   const categories = Array.from(new Set(items.map(p => p.category).filter(Boolean)));
 
   const onCreate = () => {
-    setForm({ name: "", price: 0, category: "", image: "" });
+    setForm({ name: "", price: 0, discount_percent: 0, category: "", image: "" });
     modal.openCreate();
   };
   const onEdit = (p: Product) => {
-    setForm({ name: p.name, price: p.price, category: p.category, image: p.image });
+    setForm({ name: p.name, price: p.price, discount_percent: p.discount_percent || 0, category: p.category, image: p.image });
     modal.openEdit(p);
   };
   const save = async () => {
@@ -86,6 +86,15 @@ export default function AdminProducts() {
     { header: "Name", cell: (p) => p.name },
     { header: "Category", cell: (p) => p.category },
     { header: "Price", cell: (p) => `₹${p.price}` },
+    {
+      header: "Discount",
+      cell: (p) =>
+        p.discount_percent ? (
+          <span className="text-emerald-600 font-medium">{p.discount_percent}% off</span>
+        ) : (
+          <span className="text-muted-foreground">—</span>
+        ),
+    },
     { header: "Actions", cell: (p) => <RowActions onView={() => modal.openView(p)} onEdit={() => onEdit(p)} onDelete={() => modal.openDelete(p)} /> },
   ];
 
@@ -120,11 +129,16 @@ export default function AdminProducts() {
             <div><Label>Name</Label><p className="font-medium">{modal.item.name}</p></div>
             <div><Label>Category</Label><p>{modal.item.category}</p></div>
             <div><Label>Price</Label><p>₹{modal.item.price}</p></div>
+            <div>
+              <Label>Discount</Label>
+              <p>{modal.item.discount_percent ? `${modal.item.discount_percent}% off` : "No discount"}</p>
+            </div>
           </div>
         ) : (
           <>
             <div><Label>Name</Label><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div>
             <div><Label>Price</Label><Input type="number" value={form.price} onChange={(e) => setForm({ ...form, price: +e.target.value })} /></div>
+            <div><Label>Discount %</Label><Input type="number" min={0} max={100} value={form.discount_percent} onChange={(e) => setForm({ ...form, discount_percent: +e.target.value })} /></div>
             <div><Label>Category</Label><Input value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} /></div>
             <ImagePicker label="Product Image" value={form.image} onChange={(v) => setForm({ ...form, image: v })} />
           </>

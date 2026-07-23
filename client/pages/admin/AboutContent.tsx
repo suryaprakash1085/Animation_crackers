@@ -13,8 +13,8 @@ import { PageHeader } from "@/components/admin/PageHeader";
 import { settingsStore, AboutSettings } from "@/lib/appSettings";
 import { ICON_NAMES, Icon } from "@/lib/iconMap";
 
-const inputCls = "bg-slate-900/60 border-white/10 text-slate-100";
-const sectionCard = "p-6 bg-slate-900/50 border-white/10 space-y-4";
+const inputCls = "bg-slate-50 border-slate-200 text-slate-900";
+const sectionCard = "p-6 bg-white border-slate-200 space-y-4";
 
 const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <div className="space-y-1.5">
@@ -26,7 +26,7 @@ const Field = ({ label, children }: { label: string; children: React.ReactNode }
 const IconSelect = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => (
   <Select value={value} onValueChange={onChange}>
     <SelectTrigger className={inputCls}><SelectValue /></SelectTrigger>
-    <SelectContent className="bg-slate-900 border-white/10 text-slate-100 max-h-64">
+    <SelectContent className="bg-white border-slate-200 text-slate-900 max-h-64">
       {ICON_NAMES.map((n) => (
         <SelectItem key={n} value={n}>
           <span className="inline-flex items-center gap-2"><Icon name={n} className="w-4 h-4" /> {n}</span>
@@ -37,8 +37,8 @@ const IconSelect = ({ value, onChange }: { value: string; onChange: (v: string) 
 );
 
 const ShowToggle = ({ label, checked, onChange }: { label: string; checked: boolean; onChange: (b: boolean) => void }) => (
-  <div className="flex items-center justify-between border border-white/10 rounded-lg px-4 py-3 bg-slate-950/40">
-    <div className="font-medium text-slate-100">{label}</div>
+  <div className="flex items-center justify-between border border-slate-200 rounded-lg px-4 py-3 bg-slate-50">
+    <div className="font-medium text-slate-900">{label}</div>
     <Switch checked={checked} onCheckedChange={onChange} />
   </div>
 );
@@ -58,14 +58,14 @@ export default function AboutContent() {
         icon={<Info className="w-5 h-5" />}
         action={
           <div className="flex gap-2">
-            <Button variant="outline" onClick={reset} className="border-white/10 bg-slate-900/60 text-slate-200"><RotateCcw className="w-4 h-4 mr-2" />Reset</Button>
+            <Button variant="outline" onClick={reset} className="border-slate-200 bg-slate-50 text-slate-700"><RotateCcw className="w-4 h-4 mr-2" />Reset</Button>
             <Button onClick={save} className="bg-orange-600 hover:bg-orange-500"><Save className="w-4 h-4 mr-2" />Save</Button>
           </div>
         }
       />
 
       <Tabs defaultValue="header" className="w-full">
-        <TabsList className="bg-slate-900/60 border border-white/10">
+        <TabsList className="bg-slate-100 border border-slate-200">
           <TabsTrigger value="header">Header</TabsTrigger>
           <TabsTrigger value="pillars">Story / Mission / Vision</TabsTrigger>
           <TabsTrigger value="timeline">Journey</TabsTrigger>
@@ -89,7 +89,7 @@ export default function AboutContent() {
             <ShowToggle label="Show Pillars" checked={v.pillars.show} onChange={(b) => set("pillars", { ...v.pillars, show: b })} />
             <div className="grid md:grid-cols-3 gap-4">
               {v.pillars.items.map((it, i) => (
-                <Card key={i} className="p-4 bg-slate-950/40 border-white/10 space-y-3">
+                <Card key={i} className="p-4 bg-slate-50 border-slate-200 space-y-3">
                   <Field label="Icon"><IconSelect value={it.icon} onChange={(val) => {
                     const next = [...v.pillars.items]; next[i] = { ...it, icon: val };
                     set("pillars", { ...v.pillars, items: next });
@@ -135,7 +135,7 @@ export default function AboutContent() {
                   }} className="text-red-400"><Trash2 className="w-4 h-4" /></Button>
                 </div>
               ))}
-              <Button variant="outline" onClick={() => set("timeline", { ...v.timeline, items: [...v.timeline.items, { year: "", title: "", desc: "" }] })} className="border-white/10 bg-slate-900/60 text-slate-200">
+              <Button variant="outline" onClick={() => set("timeline", { ...v.timeline, items: [...v.timeline.items, { year: "", title: "", desc: "" }] })} className="border-slate-200 bg-slate-50 text-slate-700">
                 <Plus className="w-4 h-4 mr-2" />Add Milestone
               </Button>
             </div>
@@ -161,7 +161,7 @@ export default function AboutContent() {
                   }} className="text-red-400"><Trash2 className="w-4 h-4" /></Button>
                 </div>
               ))}
-              <Button variant="outline" onClick={() => set("stats", { ...v.stats, items: [...v.stats.items, { n: "", l: "" }] })} className="border-white/10 bg-slate-900/60 text-slate-200">
+              <Button variant="outline" onClick={() => set("stats", { ...v.stats, items: [...v.stats.items, { n: "", l: "" }] })} className="border-slate-200 bg-slate-50 text-slate-700">
                 <Plus className="w-4 h-4 mr-2" />Add Stat
               </Button>
             </div>
