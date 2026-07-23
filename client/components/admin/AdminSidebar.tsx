@@ -24,6 +24,7 @@ const items = [
   { title: "Customization", url: "/admin/customization", icon: Palette },
   { title: "PDF Template", url: "/admin/pdf-template", icon: FileText },
   { title: "Email Settings", url: "/admin/email-settings", icon: Mail },
+   { title: "Access Control", url: "/admin/access-control", icon: Shield },
 ];
 
 export function AdminSidebar() {
