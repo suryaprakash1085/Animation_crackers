@@ -1,7 +1,19 @@
 import { Request, Response } from "express";
 import { ProductModel } from "../models/Product.model";
+import { publicUploadUrl } from "../middleware/upload.middleware";
 
 export const ProductController = {
+  // Handles the actual file (multer already saved it to uploads/products/
+  // via the imageUpload middleware). Only the resulting URL goes back to the
+  // client — that's the string that ends up saved in the products.image column.
+  async uploadImage(req: Request, res: Response) {
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: "No image file uploaded" });
+    }
+    const url = publicUploadUrl("products", req.file.filename);
+    res.status(201).json({ success: true, url });
+  },
+
   async list(req: Request, res: Response) {
     const { search, category } = req.query;
     const items = await ProductModel.findAll({

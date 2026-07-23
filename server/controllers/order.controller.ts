@@ -21,7 +21,7 @@ export const OrderController = {
   },
 
   async create(req: Request, res: Response) {
-    const { customer_name, phone, address, category, total, status, order_date } = req.body;
+    const { customer_name, phone, address, category, total, status, order_date, items } = req.body;
     if (!customer_name?.trim() || !phone?.trim()) {
       return res.status(400).json({ success: false, error: "Customer name and phone are required" });
     }
@@ -33,6 +33,14 @@ export const OrderController = {
       total: Number(total) || 0,
       status,
       order_date,
+      items: Array.isArray(items)
+        ? items.map((it: any) => ({
+            product_id: it.product_id ? Number(it.product_id) : null,
+            product_name: String(it.product_name || "").trim(),
+            quantity: Number(it.quantity) || 1,
+            price: Number(it.price) || 0,
+          }))
+        : undefined,
     });
     res.status(201).json({ success: true, data: item });
   },
@@ -45,7 +53,18 @@ export const OrderController = {
   },
 
   async update(req: Request, res: Response) {
-    const item = await OrderModel.update(Number(req.params.id), req.body);
+    const { items, ...rest } = req.body;
+    const item = await OrderModel.update(Number(req.params.id), {
+      ...rest,
+      items: Array.isArray(items)
+        ? items.map((it: any) => ({
+            product_id: it.product_id ? Number(it.product_id) : null,
+            product_name: String(it.product_name || "").trim(),
+            quantity: Number(it.quantity) || 1,
+            price: Number(it.price) || 0,
+          }))
+        : undefined,
+    });
     res.json({ success: true, data: item });
   },
 

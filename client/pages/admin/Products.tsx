@@ -140,7 +140,12 @@ export default function AdminProducts() {
             <div><Label>Price</Label><Input type="number" value={form.price} onChange={(e) => setForm({ ...form, price: +e.target.value })} /></div>
             <div><Label>Discount %</Label><Input type="number" min={0} max={100} value={form.discount_percent} onChange={(e) => setForm({ ...form, discount_percent: +e.target.value })} /></div>
             <div><Label>Category</Label><Input value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} /></div>
-            <ImagePicker label="Product Image" value={form.image} onChange={(v) => setForm({ ...form, image: v })} />
+            <ImagePicker
+              label="Product Image"
+              value={form.image}
+              onChange={(v) => setForm({ ...form, image: v })}
+              uploadUrl="/api/products/upload"
+            />
           </>
         )}
       </FormModal>
