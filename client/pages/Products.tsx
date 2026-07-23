@@ -4,21 +4,29 @@ import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductModal } from "@/components/ProductModal";
 import { products, type Category, type Product } from "@/data/products";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Search } from "lucide-react";
 
-const categories: ("All" | Category)[] = ["All", "Rockets", "Sparklers", "Fountains", "Bombs"];
+type CatFilter = "All" | Category | "Fancy";
+const categories: { label: string; value: CatFilter }[] = [
+  { label: "All", value: "All" },
+  { label: "Sparklers", value: "Sparklers" },
+  { label: "Flower Pots", value: "Fountains" },
+  { label: "Rockets", value: "Rockets" },
+  { label: "Bombs", value: "Bombs" },
+  { label: "Fancy", value: "Fancy" },
+];
 const sorts = ["Popularity", "Price: Low to High", "Price: High to Low", "Name"] as const;
 
 const Products = () => {
-  const [cat, setCat] = useState<"All" | Category>("All");
+  const [cat, setCat] = useState<CatFilter>("All");
   const [search, setSearch] = useState("");
   const [maxPrice, setMaxPrice] = useState(2000);
   const [sort, setSort] = useState<(typeof sorts)[number]>("Popularity");
   const [active, setActive] = useState<Product | null>(null);
 
   const filtered = useMemo(() => {
-    let r = products.filter(p =>
-      (cat === "All" || p.category === cat) &&
+    let r = products.filter((p) =>
+      (cat === "All" || cat === "Fancy" || p.category === cat) &&
       p.name.toLowerCase().includes(search.toLowerCase()) &&
       p.price <= maxPrice
     );
@@ -30,76 +38,94 @@ const Products = () => {
 
   return (
     <Layout>
-      <section className="section-pad !pt-10">
-        <div className="container-festive">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-            <span className="text-primary font-semibold text-sm">Shop</span>
-            <h1 className="font-display text-4xl md:text-6xl font-bold mt-2">
-              Our <span className="text-gradient-festive">Products</span>
+      <section className="pt-24 pb-20 px-4 md:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+
+          {/* Page header */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
+            <div className="text-primary font-semibold text-sm mb-2">Our Products</div>
+            <h1 className="font-display font-black text-5xl md:text-6xl text-gray-900">
+              Our <span className="text-gradient-festive">Premium Products</span>
             </h1>
+            <p className="text-gray-500 mt-3 max-w-lg">
+              Explore our wide range of premium quality crackers.
+            </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-[280px_1fr] gap-6">
-            {/* Sidebar filters */}
-            <aside className="glass-card rounded-3xl p-6 h-fit lg:sticky lg:top-28">
-              <div className="flex items-center gap-2 mb-4">
-                <SlidersHorizontal className="w-4 h-4 text-primary" />
-                <h3 className="font-display font-semibold">Filter Products</h3>
-              </div>
+          {/* Category Pills */}
+          <div className="flex gap-2 flex-wrap mb-8">
+            {categories.map((c) => (
+              <button
+                key={c.value}
+                onClick={() => setCat(c.value)}
+                className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${
+                  cat === c.value
+                    ? "bg-primary text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                    : "bg-gray-100 text-gray-600 hover:bg-primary/10 hover:text-primary"
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
 
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Category</h4>
-              <div className="flex flex-col gap-1 mb-6">
-                {categories.map(c => (
-                  <button key={c} onClick={() => setCat(c)}
-                    className={`text-left px-3 py-2 rounded-xl text-sm transition ${
-                      cat === c ? "bg-festive text-white shadow-soft" : "hover:bg-primary/5"
-                    }`}>
-                    {c}
-                  </button>
+          {/* Toolbar */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search products…"
+                className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-primary/60 focus:shadow-[0_0_0_3px_rgba(249,115,22,0.1)] transition"
+              />
+            </div>
+            <div className="flex gap-3 items-center">
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value as any)}
+                className="border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white outline-none focus:border-primary/60 transition text-gray-700"
+              >
+                {sorts.map((s) => (
+                  <option key={s}>{s}</option>
                 ))}
-              </div>
-
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Price Range</h4>
-              <input type="range" min={50} max={2000} step={10} value={maxPrice}
-                onChange={e => setMaxPrice(+e.target.value)}
-                className="w-full accent-primary" />
-              <div className="flex justify-between text-xs text-muted-foreground mb-6">
-                <span>₹0</span><span>₹{maxPrice}</span>
-              </div>
-
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Sort By</h4>
-              <select value={sort} onChange={e => setSort(e.target.value as any)} className="input-glow text-sm py-2">
-                {sorts.map(s => <option key={s}>{s}</option>)}
               </select>
-            </aside>
-
-            {/* Products */}
-            <div>
-              <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <div className="relative flex-1">
-                  <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                  <input
-                    value={search} onChange={e => setSearch(e.target.value)}
-                    placeholder="Search products…"
-                    className="input-glow !pl-11"
-                  />
-                </div>
-                <div className="glass-card rounded-xl px-4 py-3 text-sm text-muted-foreground whitespace-nowrap">
-                  {filtered.length} products
-                </div>
+              <div className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-500 whitespace-nowrap">
+                {filtered.length} products
               </div>
-
-              {filtered.length === 0 ? (
-                <div className="glass-card rounded-3xl p-12 text-center text-muted-foreground">
-                  No products match your filters.
-                </div>
-              ) : (
-                <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
-                  {filtered.map((p, i) => <ProductCard key={p.id} product={p} index={i} onImageClick={setActive} />)}
-                </div>
-              )}
             </div>
           </div>
+
+          {/* Price Range */}
+          <div className="bg-gray-50 rounded-2xl p-4 mb-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">Price Range:</span>
+            <input
+              type="range" min={50} max={2000} step={10} value={maxPrice}
+              onChange={(e) => setMaxPrice(+e.target.value)}
+              className="flex-1 accent-primary h-2 cursor-pointer"
+            />
+            <span className="text-sm font-bold text-primary whitespace-nowrap">Up to ₹{maxPrice}</span>
+          </div>
+
+          {/* Products Grid */}
+          {filtered.length === 0 ? (
+            <div className="bg-gray-50 rounded-3xl p-16 text-center text-gray-400">
+              <div className="text-5xl mb-4">🔍</div>
+              <p className="font-semibold">No products match your filters.</p>
+            </div>
+          ) : (
+            <motion.div
+              key={cat + search + maxPrice}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+            >
+              {filtered.map((p, i) => (
+                <ProductCard key={p.id} product={p} index={i} onImageClick={setActive} />
+              ))}
+            </motion.div>
+          )}
         </div>
       </section>
       <ProductModal product={active} onClose={() => setActive(null)} />

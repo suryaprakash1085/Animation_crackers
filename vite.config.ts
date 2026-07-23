@@ -6,7 +6,7 @@ import { createServer } from "./server/index"; // usa el alias
 export default defineConfig(({ mode }) => ({
   server: {
     host: "0.0.0.0",
-    port: 9000,
+    port: 5000,
   fs: {
   allow: ["./", "./client", "./shared"], // <-- added "./" for root
   deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
